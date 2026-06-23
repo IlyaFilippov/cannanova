@@ -115,6 +115,23 @@
       </div>
     </section>
 
+    <!-- ===================== LIVE INVENTORY ===================== -->
+    <section class="section" id="livebestand" aria-labelledby="inventory-title">
+      <div class="container">
+        <div class="section__head">
+          <p class="eyebrow">Livebestand</p>
+          <h2 id="inventory-title">Neu im Sortiment</h2>
+          <p class="lead">
+            Unsere zuletzt aufgenommenen Produkte – tagesaktuell aus unserem
+            Apothekenbestand. Belieferung ausschließlich gegen gültige ärztliche
+            Verordnung.
+          </p>
+        </div>
+        <!-- Populated client-side from the pharmacy shop API (js/livebestand.js) -->
+        <div class="grid grid--3 inventory" id="livebestand-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
     <!-- ===================== HOW IT WORKS ===================== -->
     <section class="section section--alt" id="so-funktioniert" aria-labelledby="how-title">
       <div class="container">
@@ -365,5 +382,7 @@
       </div>
     </div>
   </footer>
+
+  <script src="js/livebestand.js" defer></script>
 </body>
 </html>

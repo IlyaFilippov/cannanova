@@ -146,6 +146,78 @@ p { margin: 0; }
 /* Strain card: colored left accent driven by --accent ------------------- */
 .card--accent { border-left: var(--border-accent-width) solid var(--accent, var(--color-brand)); }
 
+/* Product card: live-inventory item from the shop API ------------------- */
+.product-card { display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+.product-card__media {
+  aspect-ratio: 4 / 3;
+  background-color: var(--color-brand-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.product-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.product-card__body { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-5); flex: 1; }
+.product-card__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.product-card__genetic { display: inline-flex; align-items: center; gap: var(--space-2); }
+.product-card__genetic::before {
+  content: "";
+  width: 8px; height: 8px;
+  border-radius: var(--radius-pill);
+  background-color: var(--genetic-color, var(--color-brand));
+}
+.product-card__name { font-size: var(--font-size-md); margin: 0; }
+.product-card__manufacturer { color: var(--color-text-muted); font-size: var(--font-size-sm); }
+.product-card__stats { display: flex; gap: var(--space-4); font-size: var(--font-size-sm); color: var(--color-text-muted); }
+.product-card__stats span { font-weight: var(--font-weight-semibold); color: var(--color-text); }
+.product-card__foot {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: auto;
+  padding-top: var(--space-4);
+}
+.product-card__price { font-size: var(--font-size-lg); font-weight: var(--font-weight-bold); color: var(--color-text); }
+.product-card__price .unit { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--color-text-muted); }
+
+/* Skeleton placeholder while loading ------------------------------------ */
+.product-card--skeleton .product-card__media,
+.product-card--skeleton .skeleton-line {
+  background: linear-gradient(90deg, var(--color-border) 25%, var(--color-bg-alt) 50%, var(--color-border) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+}
+.product-card--skeleton .product-card__body { gap: var(--space-3); }
+.skeleton-line { height: 0.9rem; border-radius: var(--radius-sm); }
+.skeleton-line.w-40 { width: 40%; }
+.skeleton-line.w-70 { width: 70%; }
+.skeleton-line.w-90 { width: 90%; }
+@keyframes skeleton-shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+/* Empty / error state ---------------------------------------------------- */
+.inventory__notice {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--space-8);
+  color: var(--color-text-muted);
+  border: var(--border-width) dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+}
+
 /* Step card: centered with icon disc ------------------------------------ */
 .card--step { text-align: center; }
 .step__label {

@@ -111,9 +111,49 @@ compliance and because Google penalizes deceptive ecommerce content.
 
 ---
 
-## Workflow
+## Responsiveness & mobile (requirement, not optional)
 
-- No build step: edit HTML/CSS directly, open in a browser to verify.
-- Always work on a branch and open a PR; share the preview link before merging.
-- Keep changes small and reviewable so a non-technical reviewer can sanity-check
-  the rendered preview.
+Most visitors are on phones, and Google indexes the mobile version. Every change
+must look and work well on mobile first.
+
+- **Mobile-first:** design and verify the small-screen layout first, then scale
+  up. Test at least 360px (small phone), 768px (tablet), and 1280px (desktop).
+- **No horizontal scroll** at any width. Nothing overflows the viewport; long
+  words/URLs wrap. Use fluid widths (`%`, `fr`, `minmax`, `clamp`) over fixed
+  pixel widths for layout.
+- **Multi-column grids collapse** to fewer columns (and to a single column on
+  phones). Reference only the tokenized breakpoints — no ad-hoc media queries
+  with magic pixel values.
+- **Tap targets ≥ 44×44px** with enough spacing; don't rely on hover for
+  anything essential (phones have no hover).
+- **Readable type on mobile:** body text ≥ 16px, comfortable line length and
+  line-height from the type scale.
+- **Images are responsive:** never overflow their container, always carry
+  `width`/`height` (prevent layout shift), and lazy-load below the fold.
+- **Respect `prefers-reduced-motion`** and keep keyboard focus states visible.
+- Verify in a real mobile viewport (or DevTools device mode) before publishing —
+  a desktop check is not enough.
+
+---
+
+## Workflow — publishing live to production
+
+This site is maintained largely by **non-technical users**, and the goal is
+simply to **update the live website in production**. Optimize the workflow for
+that: small, direct, low-ceremony changes.
+
+- **We always push directly to `main`.** `main` is the live production site —
+  committing and pushing to `main` publishes the change. There is no separate
+  release step.
+- **No PR / branch dance required.** Do not create feature branches or open pull
+  requests for routine content and layout edits; commit to `main` and push.
+- **No build step:** edit HTML/CSS/JS directly and open the page in a browser
+  (or the local static server) to verify before pushing.
+- **Because every push goes live, verify first.** Before pushing to `main`:
+  check the page renders correctly, including on mobile (see Responsiveness
+  above), and that nothing is broken.
+- **Keep changes small and self-contained** so a non-technical user can review
+  the rendered result at a glance and so any single change is easy to undo
+  (revert the commit) if something looks wrong in production.
+- Write clear, plain-language commit messages describing what changed on the
+  site, so non-technical maintainers can scan the history.

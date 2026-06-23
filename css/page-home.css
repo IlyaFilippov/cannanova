@@ -26,6 +26,9 @@
   margin-bottom: var(--space-5);
 }
 
+/* ---- Live inventory ---------------------------------------------------- */
+.inventory { grid-template-columns: repeat(4, 1fr); }
+
 /* ---- Strains ----------------------------------------------------------- */
 .strains__note { margin-top: var(--space-6); max-width: 70ch; }
 
@@ -54,8 +57,16 @@
 }
 
 /* ---- Responsive -------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .inventory { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 860px) {
   .hero__grid { grid-template-columns: 1fr; gap: var(--space-7); }
   .hero h1 { max-width: none; }
   .contact__grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 540px) {
+  .inventory { grid-template-columns: 1fr; }
 }
