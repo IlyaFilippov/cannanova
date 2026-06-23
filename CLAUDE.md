@@ -1,11 +1,30 @@
 # Cannanova — Project Guidelines
 
-Static landing-page website. Plain HTML/CSS (no build step). Edits flow through
-Claude Code → PR → preview → merge to `main` to publish.
+Static landing-page website. Plain HTML/CSS (no build step). Edits are made
+directly and pushed to `main`, which is the live production site (see
+**Workflow** below).
 
 When doing any visual or layout work, invoke the **`frontend-design`** skill
 (in `.claude/skills/`) for aesthetic direction — but every choice it produces
 must still conform to the design system defined below.
+
+---
+
+## Scope — landing page only
+
+**This repository is purely the landing page (the marketing/front page).** It is
+not the shop.
+
+- **The shop (storefront, product catalog, cart, checkout) is provided by
+  cannaflow.de** and is hosted at **`shop.cannanova-langen.de`**. It is a
+  separate system — not part of this repo.
+- Do **not** build shopping/checkout/account functionality here. Anything that
+  is "the shop" belongs to cannaflow.de at `shop.cannanova-langen.de`.
+- The landing page may **read** from the cannaflow pharmacy API (e.g. the
+  Livebestand "latest products" widget) and may **link out** to
+  `shop.cannanova-langen.de`, but it does not host the shop itself.
+- When a product or "buy"/"order" action is needed, link to the shop at
+  `shop.cannanova-langen.de` rather than implementing it in this repo.
 
 ---
 

@@ -8,10 +8,16 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+  /* Guard against any element forcing the page wider than the screen. */
+  overflow-x: hidden;
+}
 
 body {
   margin: 0;
+  max-width: 100%;
+  overflow-x: hidden;
   font-family: var(--font-body);
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
@@ -20,6 +26,12 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
+
+/* Nothing may exceed the viewport width; long words wrap instead of overflow. */
+*,
+*::before,
+*::after { min-width: 0; }
+p, h1, h2, h3, h4, li, a, summary { overflow-wrap: break-word; }
 
 img { max-width: 100%; height: auto; display: block; }
 
@@ -41,8 +53,10 @@ h1, h2, h3 {
   margin: 0;
 }
 
-h1 { font-size: var(--font-size-3xl); letter-spacing: -0.02em; }
-h2 { font-size: var(--font-size-2xl); letter-spacing: -0.01em; }
+/* Fluid headings: scale down on small screens so long German words never
+   overflow, up to the design type-scale size on larger viewports. */
+h1 { font-size: clamp(2rem, 7vw, var(--font-size-3xl)); letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.6rem, 5vw, var(--font-size-2xl)); letter-spacing: -0.01em; }
 h3 { font-size: var(--font-size-lg); }
 
 p { margin: 0; }
@@ -245,8 +259,10 @@ p { margin: 0; }
 
 /* ---- Grid helpers ------------------------------------------------------ */
 .grid { display: grid; gap: var(--space-5); }
-.grid--3 { grid-template-columns: repeat(3, 1fr); }
-.grid--auto { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+/* auto-fit + minmax means columns reflow to fit any width without overflowing.
+   min() keeps the min track from ever exceeding the container on narrow screens. */
+.grid--3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+.grid--auto { grid-template-columns: repeat(auto-fill, minmax(min(100%, 140px), 1fr)); }
 
 /* ---- Check list -------------------------------------------------------- */
 .check-list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); }
@@ -360,6 +376,7 @@ p { margin: 0; }
   gap: var(--space-7);
   padding-block: var(--space-9);
 }
+.site-footer__col .logo-cell { max-width: 100%; }
 .site-footer__col h4 {
   font-family: var(--font-body);
   font-size: var(--font-size-sm);
@@ -387,10 +404,18 @@ p { margin: 0; }
 /* ---- Responsive -------------------------------------------------------- */
 @media (max-width: 860px) {
   .site-nav { display: none; }
-  .grid--3 { grid-template-columns: 1fr; }
-  .site-footer__grid { grid-template-columns: 1fr 1fr; }
+  .section { padding-block: var(--space-9); }
+  .site-footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    padding-block: var(--space-7);
+  }
+  .section__head { margin-bottom: var(--space-6); }
 }
 
 @media (max-width: 540px) {
+  :root { --container-pad: var(--space-4); }
+  .section { padding-block: var(--space-8); }
   .site-footer__grid { grid-template-columns: 1fr; }
+  .card { padding: var(--space-5); }
 }

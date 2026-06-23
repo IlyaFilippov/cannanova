@@ -48,8 +48,10 @@ function productCard(p) {
   const unit = UNIT_LABEL[p.unit] ?? esc(p.unit ?? "");
   const img = imageFor(p);
   const alt = esc(`${p.name ?? "Produkt"} – ${p.manufacturer ?? ""}`.trim());
+  // The shop itself lives at shop.cannanova-langen.de (provided by cannaflow.de);
+  // this repo is only the landing page, so product links point at that storefront.
   const href = p.slug
-    ? `https://shop.cannaflow.de/${encodeURIComponent(p.slug)}`
+    ? `https://shop.cannanova-langen.de/${encodeURIComponent(p.slug)}`
     : null;
 
   const media = img
